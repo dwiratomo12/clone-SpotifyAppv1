@@ -7,15 +7,3 @@
 .form-search .form-search__input {
   flex: 1 1 100%;
 }
-
-.btn {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  width: 70px;
-  color: white;
-  background-color: grey;
-}
-
-.btn:hover {
-  background-color: #24cf88;
-}

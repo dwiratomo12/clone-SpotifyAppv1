@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "../style/Card.css";
+// import "../style/Card.css;
+import "./index.css";
 
 function Card({ imageUrl, title, artist, toggleSelect }) {
   const [isSelected, setIsSelected] = useState(false);

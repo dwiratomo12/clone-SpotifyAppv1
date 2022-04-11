@@ -1,11 +1,50 @@
-import "./App.css";
-import Home from "./pages/home/Home";
+import CreatePlaylist from "./pages/CreatePlaylist";
+import { useLocation, Switch, Route } from "react-router-dom";
+import Auth from "./pages/Auth";
+import GuardRoute from "./components/GuardRoute";
+import NotFound from "./pages/NotFound";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout } from "./slice/authSlice";
 
 function App() {
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const accessTokenState = useSelector((state) => state.auth.accessToken);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (accessToken) {
+      const expiredDate = localStorage.getItem("expiredDate");
+
+      if (expiredDate < +new Date()) {
+        dispatch(logout());
+      } else if (!accessTokenState) {
+        const user = JSON.parse(localStorage.getItem("user"));
+        dispatch(
+          login({
+            accessToken,
+            user,
+            expiredDate,
+          })
+        );
+      }
+    }
+  }, [accessTokenState, dispatch, location.pathname]);
+
   return (
-    <div className="App">
-      <Home />
-    </div>
+    <Switch>
+      <GuardRoute path="/create-playlist" type="private" exact>
+        <CreatePlaylist />
+      </GuardRoute>
+      <GuardRoute path="/" type="guest" exact>
+        <Auth />
+      </GuardRoute>
+      <Route path="*">
+        <NotFound />
+      </Route>
+    </Switch>
   );
 }
 
