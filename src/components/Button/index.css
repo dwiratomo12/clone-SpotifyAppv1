@@ -1,6 +1,6 @@
 .btn {
   min-height: 44px;
-  display: inline-block;
+  display: flex;
   background-color: var(--blue);
   border: none;
   cursor: pointer;
