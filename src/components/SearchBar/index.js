@@ -7,6 +7,7 @@ import { searchTrack } from "../../data/fetchApi";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../slice/authSlice";
+import { SearchIcon } from '@chakra-ui/icons'
 
 export default function SearchBar({ onSuccess, onClearSearch }) {
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -46,7 +47,7 @@ export default function SearchBar({ onSuccess, onClearSearch }) {
     <div>
       <form className="form-search" onSubmit={handleSubmit}>
         <Input type="text" placeholder="Search track..." className="form-search__input" required value={text} onChange={handleInput} />
-        <Button type="submit">Search</Button>
+        <Button type="submit"><SearchIcon/></Button>
       </form>
 
       {!isClear && (
