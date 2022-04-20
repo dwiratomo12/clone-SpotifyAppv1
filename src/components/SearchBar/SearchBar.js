@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../slice/authSlice";
 import { SearchIcon } from '@chakra-ui/icons'
 
-export default function SearchBar({ onSuccess, onClearSearch }) {
+export default function SearchBarFunc({ onSuccess, onClearSearch }) {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const [text, setText] = useState("");
   const [isClear, setIsClear] = useState(true);

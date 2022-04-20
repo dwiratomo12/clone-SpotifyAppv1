@@ -1,10 +1,8 @@
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
 import "./index.css";
 import PropTypes from "prop-types";
-import axios from 'axios';
 import { searchTrack } from "../../data/fetchApi";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../slice/authSlice";
 import { SearchIcon } from '@chakra-ui/icons';
 import { Button, Input } from '@chakra-ui/react';
@@ -19,8 +17,8 @@ interface Iops {
 
 const SearchBar: React.FC<Iops> = ({ onSuccess, onClearSearch }) => {
   const accessToken: string = useAppSelector((state) => state.auth.accessToken);
-  const [text, setText] = useState<string>("");
-  const [isClear, setIsClear] = useState<boolean>(true);
+  const [text, setText] = useState("");
+  const [isClear, setIsClear] = useState(true);
   const dispatch = useAppDispatch();
 
   const handleInput: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -38,7 +36,7 @@ const SearchBar: React.FC<Iops> = ({ onSuccess, onClearSearch }) => {
       setIsClear(false);
     } catch (error) {
       if (error.response?.status === 401) {
-        // dispatch(logout());
+        dispatch(logout);
       } else {
         toast.error(error.message);
       }
